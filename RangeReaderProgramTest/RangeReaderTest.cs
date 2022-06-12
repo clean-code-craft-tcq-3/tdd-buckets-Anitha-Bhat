@@ -11,7 +11,7 @@ namespace RangeReader
   public class RangeReaderTest
   {
     [Test]
-    void getNumberOfReadingTest()
+   public void getNumberOfReadingTest()
     {
       List<int> sampleList = new List<int> { 3, 3, 5, 4, 10, 11, 12 };
       RangeReader reader = new RangeReader();
@@ -20,7 +20,7 @@ namespace RangeReader
     }
 
     [Test]
-    void HandleRangeReader()
+    public void HandleRangeReader()
     {
       List<int> sampleList = new List<int> { 3, 3, 5, 4, 10, 11, 12 };
       Action<int, int, int> printFunction = Substitute.For<Action<int, int, int>>();
