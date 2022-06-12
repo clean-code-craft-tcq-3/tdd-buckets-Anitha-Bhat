@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RangeReader", "ConsoleApp1\RangeReader.csproj", "{1EC8C173-7D28-4099-B393-0C1D167F84E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RangeReader", "RangeReader.csproj", "{1EC8C173-7D28-4099-B393-0C1D167F84E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
