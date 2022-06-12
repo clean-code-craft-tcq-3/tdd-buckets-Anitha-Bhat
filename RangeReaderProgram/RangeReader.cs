@@ -13,7 +13,10 @@ namespace RangeReader
   }
   public class RangeReader: IRangeReader
   {
-  
+    public static void Main(string[] args)
+    {
+
+    }
 
     public void HandleRangeReader(List<int> sortedSamples,int rangeFrom,int rangeTo,Action<int,int,int> printFunction)
     {
