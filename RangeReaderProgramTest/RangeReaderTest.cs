@@ -11,24 +11,30 @@ namespace RangeReader
   public class RangeReaderTest
   {
     [Test]
-   public void getNumberOfReadingTest()
+    [TestCase(3, 10, 4, new[] { 3, 3, 5, 4, 10, 11, 12 })]
+    [TestCase(5, 10, 2, new[] { 3, 3, 5, 4, 10})]
+    public void getNumberOfReadingTest(int rangeFrom,int rangeTo,int expectedOutput,int[] sampleList)
     {
-      List<int> sampleList = new List<int> { 3, 3, 5, 4, 10, 11, 12 };
-      RangeReader reader = new RangeReader();
-      int numberOfReading = reader.GetNumberOfReading(sampleList, 3, 10);
-      Assert.AreEqual(numberOfReading, 4);
+      
+      var numberOfReading = RangeReader.GetNumberOfReading(sampleList.ToList(), rangeFrom, rangeTo);
+      Assert.AreEqual(numberOfReading, expectedOutput);
     }
 
+    [TestCase(0, 1, null)]
+    public void getNumberOfReadingExceptionTest(int rangeFrom, int rangeTo,List<int> sampleList)
+    {
+     
+        var ex = Assert.Throws<NullReferenceException>(() => RangeReader.GetNumberOfReading(sampleList, rangeFrom, rangeTo));
+ 
+     
+    }
     [Test]
     public void HandleRangeReader()
     {
       List<int> sampleList = new List<int> { 3, 3, 5, 4, 10, 11, 12 };
       Action<int, int, int> printFunction = Substitute.For<Action<int, int, int>>();
-      var iRangeReader = Substitute.For<IRangeReader>();
-      RangeReader reader = new RangeReader();
-      reader.HandleRangeReader(sampleList, 3, 10, printFunction);
+      RangeReader.HandleRangeReader(sampleList, 3, 10, printFunction);
       printFunction.Received(1);
-      iRangeReader.Received(1).GetNumberOfReading(sampleList, 3, 10);
       Assert.AreEqual(3, printFunction.ReceivedCalls().First().GetArguments().First());
       Assert.AreEqual(10, printFunction.ReceivedCalls().First().GetArguments()[1]);
 
