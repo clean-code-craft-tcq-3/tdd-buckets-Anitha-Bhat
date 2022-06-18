@@ -11,7 +11,7 @@ namespace RangeReader
   public class RangeReaderTest
   {
     [Test]
-    [TestCase(3, 10, 4, new[] { 3, 3, 5, 4, 10, 11, 12 })]
+    [TestCase(3, 10, 5, new[] { 3, 3, 5, 4, 10, 11, 12 })]
     [TestCase(5, 10, 2, new[] { 3, 3, 5, 4, 10})]
     public void getNumberOfReadingTest(int rangeFrom,int rangeTo,int expectedOutput,int[] sampleList)
     {
