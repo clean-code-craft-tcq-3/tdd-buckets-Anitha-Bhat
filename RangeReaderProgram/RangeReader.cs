@@ -29,7 +29,7 @@ namespace RangeReader
       {
         throw new NullReferenceException("value cannot be null");
       }
-      Samples= Samples.Distinct().OrderBy(item => item).ToList();
+      Samples= Samples.OrderBy(item => item).ToList();
       int readingCount = Samples.Where(x => x >= rangeFrom && x <= rangeTo).Count();
      return readingCount;
     }
