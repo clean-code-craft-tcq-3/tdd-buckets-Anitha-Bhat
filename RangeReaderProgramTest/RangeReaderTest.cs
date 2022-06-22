@@ -10,7 +10,7 @@ namespace RangeReader
 
   public class RangeReaderTest
   {
-      List<int> sampleList = c { 2, 3, 4, 5, 5, 6, 8, 9, 10, 11, 12 };
+      List<int> sampleList =new List<int> { 2, 3, 4, 5, 5, 6, 8, 9, 10, 11, 12 };
       List<string> expectedRange=new List<string>{"(2-6),6","(8-12),5"};
     [Test]
     public void getNumberOfReadingTest()
