@@ -8,7 +8,7 @@ namespace RangeReader
 
   public class RangeReader
   {
- 
+    public static int consecutiveNumTracker=0;
     [ExcludeFromCodeCoverage]
     public static void Main(string[] args)
     {
@@ -44,40 +44,44 @@ namespace RangeReader
       printFunction(rangeList);
     }
 
+
   
 
     public static List<string> GetConsecutiveRangeReadings(List<int> Samples)
     {
+      consecutiveNumTracker = 0;
 
       validateSamples(Samples);
 
-      List<string> groupRangeList = new List<string>();
       Samples = Samples.OrderBy(item => item).ToList();
-      int consecutiveNumTracker = 0;
+
+      List<string> groupRangeList = new List<string>();
       for (int i = 0; i < Samples.Count-1; i++)
       {
-       
-        bool isConsecutive = isConsecutiveNumber(Samples[i], Samples[i + 1]);
-        if (isConsecutive)
-          consecutiveNumTracker++;
-        bool checkIfLastCompare = isLastCompare(Samples.Count, i);
-        if (isConsecutive&& !checkIfLastCompare)
-           continue;
-
-        if (consecutiveNumTracker > 0)
-        {
-          groupRangeList.Add(string.Format("({0}-{1}),{2}", 
-            isConsecutive && checkIfLastCompare?Samples[i+1 - consecutiveNumTracker] : Samples[i -consecutiveNumTracker]
-                             , 
-            isConsecutive && checkIfLastCompare ? Samples[i+1]: Samples[i], consecutiveNumTracker+1));
-          consecutiveNumTracker = 0;
-        }
-
+        updateRangeList(groupRangeList, Samples, i);
       }
       return groupRangeList;
     }
 
+    private static void updateRangeList(List<string> rangeList,List<int> Samples, int index)
+    {
+      bool isConsecutive = isConsecutiveNumber(Samples[index], Samples[index + 1]);
+      if (isConsecutive)
+        consecutiveNumTracker++;
+      bool checkIfLastCompare = isLastCompare(Samples.Count, index);
+      if (isConsecutive && !checkIfLastCompare)
+        return;
 
+      if (consecutiveNumTracker > 0)
+      {
+        rangeList.Add(string.Format("({0}-{1}),{2}",
+          isConsecutive && checkIfLastCompare ? Samples[index + 1 - consecutiveNumTracker] : Samples[index - consecutiveNumTracker]
+          ,
+          isConsecutive && checkIfLastCompare ? Samples[index + 1] : Samples[index], consecutiveNumTracker + 1));
+        consecutiveNumTracker = 0;
+      }
+
+    }
     public static void PrintRangeData(List<string> range)
     {
       range.ForEach(r => Console.WriteLine($"{r}\n"));
