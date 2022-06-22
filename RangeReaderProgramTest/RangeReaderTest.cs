@@ -10,16 +10,17 @@ namespace RangeReader
 
   public class RangeReaderTest
   {
+      List<int> sampleList = c { 2, 3, 4, 5, 5, 6, 8, 9, 10, 11, 12 };
+      List<string> expectedRange=new List<string>{"(2-6),6","(8-12),5"};
     [Test]
     public void getNumberOfReadingTest()
     {
-       List<int> sampleList = new List<int> { 2, 3, 4, 5, 5, 6, 8, 9, 10, 11, 12 };
-      List<string> expecedRange=new List<string>{"(2-6),6","(8-12),5"};
+      
       var numberOfReading = RangeReader.GetConsecutiveRangeReadings(sampleList);
-      Assert.AreEqual(numberOfReading, expecedRange);
+      Assert.AreEqual(numberOfReading, expectedRange);
     }
 
-    [TestCase(null)]
+    [TestCase(new[]{})]
     public void getNumberOfReadingExceptionTest(List<int> sampleList)
     {
      
@@ -30,12 +31,11 @@ namespace RangeReader
     [Test]
     public void HandleRangeReader()
     {
-      List<int> sampleList = new List<int> { 2, 3, 4, 5, 5, 6, 8, 9, 10, 11, 12 };
-      List<string> expecedRange=new List<string>{"(2-6),6","(8-12),5"};
+     
       Action<List<string>> printFunction = Substitute.For<Action<List<string>>>();
       RangeReader.HandleRangeReader(sampleList,printFunction);
       printFunction.Received(1);
-      Assert.AreEqual(expecedRange, printFunction.ReceivedCalls().First().GetArguments().First());
+      Assert.AreEqual(expectedRange, printFunction.ReceivedCalls().First().GetArguments().First());
      
 
     }
