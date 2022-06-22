@@ -11,7 +11,7 @@ namespace RangeReader
   public class RangeReaderTest
   {
     [Test]
-    [TestCase(new[] {"(2-6),6","(8-12),5"}, new[]  { 2, 3, 4, 5, 5, 6, 8, 9, 10, 11, 12 };)]
+    [TestCase(new[] {"(2-6),6","(8-12),5"}, new[]  { 2, 3, 4, 5, 5, 6, 8, 9, 10, 11, 12 })]
     public void getNumberOfReadingTest(string[] expectedList,int[] sampleList)
     {
       
@@ -23,7 +23,7 @@ namespace RangeReader
     public void getNumberOfReadingExceptionTest(List<int> sampleList)
     {
      
-        var ex = Assert.Throws<NullReferenceException>(() => RangeReader.GetConsecutiveRangeReadings(sampleList.ToList());
+        var ex = Assert.Throws<NullReferenceException>(() => RangeReader.GetConsecutiveRangeReadings(sampleList.ToList()));
  
      
     }
