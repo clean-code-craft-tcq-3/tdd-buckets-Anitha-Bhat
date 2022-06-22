@@ -11,12 +11,12 @@ namespace RangeReader
   public class RangeReaderTest
   {
     [Test]
-    [TestCase(new[] {"(2-6),6","(8-12),5"}, new[]  { 2, 3, 4, 5, 5, 6, 8, 9, 10, 11, 12 })]
     public void getNumberOfReadingTest(string[] expectedList,int[] sampleList)
     {
-      
-      var numberOfReading = RangeReader.GetConsecutiveRangeReadings(sampleList.ToList());
-      Assert.AreEqual(numberOfReading, expectedList.toList());
+       List<int> sampleList = new List<int> { 2, 3, 4, 5, 5, 6, 8, 9, 10, 11, 12 };
+      List<string> expecedRange=new List<string>{"(2-6),6","(8-12),5"};
+      var numberOfReading = RangeReader.GetConsecutiveRangeReadings(sampleList);
+      Assert.AreEqual(numberOfReading, expecedRange);
     }
 
     [TestCase(null)]
@@ -32,7 +32,7 @@ namespace RangeReader
     {
       List<int> sampleList = new List<int> { 2, 3, 4, 5, 5, 6, 8, 9, 10, 11, 12 };
       List<string> expecedRange=new List<string>{"(2-6),6","(8-12),5"};
-      Action<int, int, int> printFunction = Substitute.For<Action<int, int, int>>();
+      Action<string> printFunction = Substitute.For<Action<string>>();
       RangeReader.HandleRangeReader(sampleList,printFunction);
       printFunction.Received(1);
       Assert.AreEqual(expecedRange, printFunction.ReceivedCalls().First().GetArguments().First());
