@@ -19,29 +19,12 @@ namespace RangeReader
 
     }
 
-    private static bool isConsecutiveNumber(int currentNumber, int nextNumber)
+    public static void HandleRangeReader(List<int> Samples, Action<List<string>> printFunction)
     {
-      return nextNumber - currentNumber == 1 || nextNumber - currentNumber == 0;
-    }
-
-    private static bool isLastCompare(int sampleCount, int currentIndex)
-    {
-      return sampleCount - 1 == currentIndex + 1;
-    }
-
-    private static bool isLastNumbersConsecutive(List<int> samples,int currentIndex)
-    {
-      return isConsecutiveNumber(samples[currentIndex], samples[currentIndex + 1]) && isLastCompare(samples.Count, currentIndex);
-    }
-
-    private static bool isNumbersAreNotAtLastAndConsecutive(List<int> samples, int currentIndex)
-    {
-      return isConsecutiveNumber(samples[currentIndex], samples[currentIndex + 1]) && !isLastCompare(samples.Count, currentIndex);
-    }
-
-    private static List<int> sortSamples(List<int> samples)
-    {
-     return samples.OrderBy(item => item).ToList();
+      validateSamples(Samples);
+      Samples = sortSamples(Samples);
+      List<string> rangeList = GetConsecutiveRangeReadings(Samples);
+      printFunction(rangeList);
     }
 
     public static void validateSamples(List<int> Samples)
@@ -52,16 +35,11 @@ namespace RangeReader
       }
     }
 
-    public static void HandleRangeReader(List<int> Samples, Action<List<string>> printFunction)
+
+    private static List<int> sortSamples(List<int> samples)
     {
-      validateSamples(Samples);
-      Samples=sortSamples(Samples);
-      List<string> rangeList = GetConsecutiveRangeReadings(Samples);
-      printFunction(rangeList);
+      return samples.OrderBy(item => item).ToList();
     }
-
-
-
 
     public static List<string> GetConsecutiveRangeReadings(List<int> Samples)
     {
@@ -70,23 +48,32 @@ namespace RangeReader
       List<string> groupRangeList = new List<string>();
       for (int i = 0; i < Samples.Count - 1; i++)
       {
-        updateRangeReader(groupRangeList, Samples, i);
+       ComapreNumbers(groupRangeList, Samples, i);
+      
       }
       return groupRangeList;
     }
 
-    private static void updateRangeReader(List<string> rangeList, List<int> Samples, int index)
+    private static void ComapreNumbers(List<string> rangeList,List<int> Samples, int index)
     {
       if (isConsecutiveNumber(Samples[index], Samples[index + 1]))
         consecutiveNumTracker++;
-      if (isNumbersAreNotAtLastAndConsecutive(Samples,index))
+      if (isNumbersAreNotAtLastAndConsecutive(Samples, index))
         return;
+      UpdateRangeReader(rangeList, Samples, index);
+    }
+
+    private static void UpdateRangeReader(List<string> rangeList, List<int> Samples, int index)
+    {
+      
       if (consecutiveNumTracker > 0)
       {
         rangeList.Add(GetFormatedString(Samples, index));
         consecutiveNumTracker = 0;
       }
     }
+
+   
 
     private static string GetFormatedString(List<int> samples, int currentIndex)
     {
@@ -98,10 +85,30 @@ namespace RangeReader
 
     }
 
+
     public static void PrintRangeData(List<string> range)
     {
       range.ForEach(r => Console.WriteLine($"{r}\n"));
     }
 
+    private static bool isConsecutiveNumber(int currentNumber, int nextNumber)
+    {
+      return nextNumber - currentNumber == 1 || nextNumber - currentNumber == 0;
+    }
+
+    private static bool isLastCompare(int sampleCount, int currentIndex)
+    {
+      return sampleCount - 1 == currentIndex + 1;
+    }
+
+    private static bool isLastNumbersConsecutive(List<int> samples, int currentIndex)
+    {
+      return isConsecutiveNumber(samples[currentIndex], samples[currentIndex + 1]) && isLastCompare(samples.Count, currentIndex);
+    }
+
+    private static bool isNumbersAreNotAtLastAndConsecutive(List<int> samples, int currentIndex)
+    {
+      return isConsecutiveNumber(samples[currentIndex], samples[currentIndex + 1]) && !isLastCompare(samples.Count, currentIndex);
+    }
   }
 }
