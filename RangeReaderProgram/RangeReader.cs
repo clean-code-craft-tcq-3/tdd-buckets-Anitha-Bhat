@@ -8,11 +8,7 @@ namespace RangeReader
 
   public class RangeReader
   {
-    private static bool isLastCompare(int sampleCount, int currentIndex)
-    {
-      return sampleCount - 1 == currentIndex + 1;
-    }
-
+ 
     [ExcludeFromCodeCoverage]
     public static void Main(string[] args)
     {
@@ -22,19 +18,39 @@ namespace RangeReader
       HandleRangeReader(sampleList, PrintRangeData);
 
     }
-    public static void HandleRangeReader(List<int> Samples, Action<List<string>> printFunction)
+
+    private static bool isConsecutiveNumber(int currentNumber, int nextNumber)
     {
-      List<string> rangeList = GetConsecutiveRangeReadings(Samples);
-      printFunction(rangeList);
+      return nextNumber - currentNumber == 1 || nextNumber - currentNumber == 0;
     }
 
-    public static List<string> GetConsecutiveRangeReadings(List<int> Samples)
+    private static bool isLastCompare(int sampleCount, int currentIndex)
     {
+      return sampleCount - 1 == currentIndex + 1;
+    }
 
+    public static void validateSamples(List<int> Samples)
+    {
       if (Samples == null)
       {
         throw new NullReferenceException("value cannot be null");
       }
+    }
+
+    public static void HandleRangeReader(List<int> Samples, Action<List<string>> printFunction)
+    {
+     
+      List<string> rangeList = GetConsecutiveRangeReadings(Samples);
+      printFunction(rangeList);
+    }
+
+  
+
+    public static List<string> GetConsecutiveRangeReadings(List<int> Samples)
+    {
+
+      validateSamples(Samples);
+
       List<string> groupRangeList = new List<string>();
       Samples = Samples.OrderBy(item => item).ToList();
       int consecutiveNumTracker = 0;
@@ -44,9 +60,8 @@ namespace RangeReader
         bool isConsecutive = isConsecutiveNumber(Samples[i], Samples[i + 1]);
         if (isConsecutive)
           consecutiveNumTracker++;
-        
         bool checkIfLastCompare = isLastCompare(Samples.Count, i);
-        if (isConsecutive && !checkIfLastCompare)
+        if (isConsecutive&& !checkIfLastCompare)
            continue;
 
         if (consecutiveNumTracker > 0)
@@ -57,28 +72,15 @@ namespace RangeReader
             isConsecutive && checkIfLastCompare ? Samples[i+1]: Samples[i], consecutiveNumTracker+1));
           consecutiveNumTracker = 0;
         }
-      
 
       }
-
       return groupRangeList;
     }
 
-    private static bool isConsecutiveNumber(int currentNumber, int nextNumber)
-    {
-      if (nextNumber - currentNumber == 1 || nextNumber - currentNumber == 0)
-      {
-        return true;
-      }
 
-      return false;
-
-    }
     public static void PrintRangeData(List<string> range)
     {
       range.ForEach(r => Console.WriteLine($"{r}\n"));
-
-
     }
 
   }
