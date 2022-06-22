@@ -24,7 +24,7 @@ namespace RangeReader
     public void getNumberOfReadingExceptionTest(List<int> sampleList)
     {
      
-        var ex = Assert.Throws<NullReferenceException>(() => RangeReader.GetConsecutiveRangeReadings(sampleList.ToList()));
+        var ex = Assert.Throws<NullReferenceException>(() => RangeReader.HandleRangeReader(sampleList.ToList()));
  
      
     }
