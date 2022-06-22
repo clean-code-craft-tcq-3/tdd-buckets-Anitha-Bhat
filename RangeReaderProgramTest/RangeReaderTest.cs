@@ -11,32 +11,32 @@ namespace RangeReader
   public class RangeReaderTest
   {
     [Test]
-    [TestCase(3, 10, 5, new[] { 3, 3, 5, 4, 10, 11, 12 })]
-    [TestCase(5, 10, 2, new[] { 3, 3, 5, 4, 10})]
-    public void getNumberOfReadingTest(int rangeFrom,int rangeTo,int expectedOutput,int[] sampleList)
+    [TestCase(new[] {"(2-6),6","(8-12),5"}, new[]  { 2, 3, 4, 5, 5, 6, 8, 9, 10, 11, 12 };)]
+    public void getNumberOfReadingTest(string[] expectedList,int[] sampleList)
     {
       
-      var numberOfReading = RangeReader.GetNumberOfReading(sampleList.ToList(), rangeFrom, rangeTo);
-      Assert.AreEqual(numberOfReading, expectedOutput);
+      var numberOfReading = RangeReader.GetConsecutiveRangeReadings(sampleList.ToList());
+      Assert.AreEqual(numberOfReading, expectedList.toList());
     }
 
-    [TestCase(0, 1, null)]
-    public void getNumberOfReadingExceptionTest(int rangeFrom, int rangeTo,List<int> sampleList)
+    [TestCase(null)]
+    public void getNumberOfReadingExceptionTest(List<int> sampleList)
     {
      
-        var ex = Assert.Throws<NullReferenceException>(() => RangeReader.GetNumberOfReading(sampleList, rangeFrom, rangeTo));
+        var ex = Assert.Throws<NullReferenceException>(() => RangeReader.GetConsecutiveRangeReadings(sampleList.ToList());
  
      
     }
     [Test]
     public void HandleRangeReader()
     {
-      List<int> sampleList = new List<int> { 3, 3, 5, 4, 10, 11, 12 };
+      List<int> sampleList = new List<int> { 2, 3, 4, 5, 5, 6, 8, 9, 10, 11, 12 };
+      List<string> expecedRange=new List<string>{"(2-6),6","(8-12),5"};
       Action<int, int, int> printFunction = Substitute.For<Action<int, int, int>>();
-      RangeReader.HandleRangeReader(sampleList, 3, 10, printFunction);
+      RangeReader.HandleRangeReader(sampleList,printFunction);
       printFunction.Received(1);
-      Assert.AreEqual(3, printFunction.ReceivedCalls().First().GetArguments().First());
-      Assert.AreEqual(10, printFunction.ReceivedCalls().First().GetArguments()[1]);
+      Assert.AreEqual(expecedRange, printFunction.ReceivedCalls().First().GetArguments().First());
+     
 
     }
   }
