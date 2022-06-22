@@ -20,11 +20,11 @@ namespace RangeReader
       Assert.AreEqual(numberOfReading, expectedRange);
     }
 
-    [TestCase(new[]{})]
+   
     public void getNumberOfReadingExceptionTest(List<int> sampleList)
     {
      
-        var ex = Assert.Throws<NullReferenceException>(() => RangeReader.HandleRangeReader(sampleList.ToList()));
+        var ex = Assert.Throws<NullReferenceException>(() => RangeReader.HandleRangeReader(new List<int>{}));
  
      
     }
