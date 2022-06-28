@@ -30,7 +30,7 @@ namespace RangeReader
     
     public static List<int> GetConvertedAmpsList(List<float> readings){
       
-      List<int> convertedAmpsList=new List<int>;  
+      List<int> convertedAmpsList=new List<int>();  
       for(int inputIndex=0; inputIndex < readings.Count(); inputIndex++)
         {
           if (readings[inputIndex] > maximumTemperatureA2D)
