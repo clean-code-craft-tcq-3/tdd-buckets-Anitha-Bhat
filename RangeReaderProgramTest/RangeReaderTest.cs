@@ -6,12 +6,13 @@ using System.Linq;
 using NSubstitute.ReceivedExtensions;
 
 namespace RangeReader
-    List<int> sampleList = new List<int> { 2, 3, 4, 5, 5, 6, 8, 9, 10, 11, 12 };
+   
 {
 
   public class RangeReaderTest
   {
     List<string> expectedRange = new List<string> { "(2-6),6", "(8-12),5" };
+    List<int> sampleList = new List<int> { 2, 3, 4, 5, 5, 6, 8, 9, 10, 11, 12 };
     [Test]
     public void getNumberOfReadingTest()
     {
