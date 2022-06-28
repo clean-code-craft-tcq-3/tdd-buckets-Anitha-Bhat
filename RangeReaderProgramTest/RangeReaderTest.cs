@@ -46,11 +46,19 @@ namespace RangeReader
       printFunction.Received(1);
     }
     
-    public void TestGetConvertedAmpList(){
+    public void TestConvertA2DToAmps(){
        Assert.AreEqual(RangeReader.ConvertA2DToAmps(0),0);
        Assert.AreEqual(RangeReader.ConvertA2DToAmps(4095),10);
        Assert.AreEqual(RangeReader.ConvertA2DToAmps(1146),3);
            
+    }
+    
+    public void TestGetConvertedAmpsList(){
+       List<float> inputList={1546,3000,4092};
+       List<int> expectedList={4,7,10};
+       List<int> convertedList= GetConvertedAmpsList(inputList);
+       Assert.AreEqual(convertedList,expectedList);
+  
     }
     
   }
