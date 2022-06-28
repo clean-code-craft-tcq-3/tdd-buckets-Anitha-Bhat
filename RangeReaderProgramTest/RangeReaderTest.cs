@@ -6,13 +6,12 @@ using System.Linq;
 using NSubstitute.ReceivedExtensions;
 
 namespace RangeReader
-   
 {
-
   public class RangeReaderTest
   {
     List<string> expectedRange = new List<string> { "(2-6),6", "(8-12),5" };
     List<int> sampleList = new List<int> { 2, 3, 4, 5, 5, 6, 8, 9, 10, 11, 12 };
+     
     [Test]
     public void getNumberOfReadingTest()
     {
@@ -34,12 +33,10 @@ namespace RangeReader
 
     public void getNumberOfReadingExceptionTest()
     {
-
       var ex = Assert.Throws<NullReferenceException>(() =>
         RangeReader.HandleRangeReader(new List<int> { }, Substitute.For<Action<List<string>>>()));
-
-
     }
+     
     [Test]
     public void HandleRangeReader()
     {
@@ -47,15 +44,12 @@ namespace RangeReader
       Action<List<string>> printFunction = Substitute.For<Action<List<string>>>();
       RangeReader.HandleRangeReader(sampleList, printFunction);
       printFunction.Received(1);
-
-
-
     }
     
     public void TestGetConvertedAmpList(){
-       Assert.AreEqual(ConvertA2DToAmps(0),0);
-       Assert.AreEqual(ConvertA2DToAmps(4095),10);
-       Assert.AreEqual(ConvertA2DToAmps(1146),3);
+       Assert.AreEqual(RangeReader.ConvertA2DToAmps(0),0);
+       Assert.AreEqual(RangeReader.ConvertA2DToAmps(4095),10);
+       Assert.AreEqual(RangeReader.ConvertA2DToAmps(1146),3);
            
     }
     
