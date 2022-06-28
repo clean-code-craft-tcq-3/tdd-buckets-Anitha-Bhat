@@ -9,8 +9,8 @@ namespace RangeReader
   public class RangeReader
   {
     public static int consecutiveNumTracker = 0;
-    public static float maximumTemperatureA2D 4094;
-    public static float maximumTemperatureAmps 10;
+    public static float maximumTemperatureA2D=4094;
+    public static float maximumTemperatureAmps= 10;
       
     [ExcludeFromCodeCoverage]
     public static void Main(string[] args)
@@ -36,7 +36,7 @@ namespace RangeReader
           if (readings[inputIndex] > maximumTemperatureA2D)
                 throw new Exception("Reading exceeds the maximum value");
       
-          convertedAmpsList.Add(ConvertA2DToAmps(readings[inputIndex]);
+          convertedAmpsList.Add(ConvertA2DToAmps(readings[inputIndex]));
                              
        }
       return convertedAmpsList;                        
