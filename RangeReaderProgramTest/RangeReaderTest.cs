@@ -54,9 +54,9 @@ namespace RangeReader
     }
     
     public void TestGetConvertedAmpsList(){
-       List<float> inputList={1546,3000,4092};
-       List<int> expectedList={4,7,10};
-       List<int> convertedList= GetConvertedAmpsList(inputList);
+       List<float> inputList=new List<float>{1546,3000,4092};
+       List<int> expectedList=new List<int>{4,7,10};
+       List<int> convertedList= RangeReader.GetConvertedAmpsList(inputList);
        Assert.AreEqual(convertedList,expectedList);
   
     }
